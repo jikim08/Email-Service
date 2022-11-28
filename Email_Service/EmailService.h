@@ -2,40 +2,46 @@
 #include <iostream>
 #include <map>
 #include <vector>
+using namespace std;
+class AccountController;
 
-class Email_storage {			//메일 1개만 관리
+class Emailstorage {
 private:
-	std::string To;
-	std::string From;
-	std::string Title;
-	std::string Contents;
+	string To;
+	string From;
+	string Title;
+	string contents;
 public:
-	void Get_email();		//멤버변수에 값을 받기위한 함수
-	void Get_From(std::string ID);
+	void GetEmail();
+	void GetFrom(string name);
+	string ReturnTo();
+	void ShowMail();
 };
 
 class MainController {
-public:
-	void start();			//사실상 메인함수
+	void start();
 };
 
-class EmailController {			//ID한 개 관리
+class EmailController {
 private:
-	std::vector<Email_storage> send_mail;
-	std::vector<Email_storage> receive_mail;
+	string ID;
+	vector<Emailstorage> SendMail;
+	vector<Emailstorage> ReceiveMail;
 public:
-	
-	void Send();			//메일 보내기
-	void show_send();		//보낸 메일함
-	void show_receive();	//받은 메일함
+	void GetID(string ID);
+	string returnID();
+	void Send(AccountController& acclist);
+	void Receive(Emailstorage& mail);
+	void ShowSendMail();
+	void ShowReceiveMail();
 };
 
-class AccountController {		//모든 계정 관리
+class AccountController {
 private:
-	std::map<std::string, std::string> ID_PW;
-	std::map<std::string, EmailController> users;
+	map<string, string> IDPW;
+	map<string, EmailController> data;
 public:
-	void Get_ID_PW();			//회원가입
-	void login();
-	void logout();
+	void addID();
+	void ReceiveMail(Emailstorage& mail);
+	bool login(EmailController &loginID);
 };
